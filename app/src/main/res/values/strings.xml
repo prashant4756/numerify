@@ -12,4 +12,9 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="enter_word_to_numerify">Enter a word to numerify</string>
     <string name="numerify_help_text">Only single word should be entered</string>
+    <string name="name">Name</string>
+    <string name="value">Value</string>
+    <string name="sum_all">Sum of all characters</string>
+    <string name="square_of_sum">Square after summing up</string>
+    <string name="square_root_of_sum">Square root after summing up</string>
 </resources>
