@@ -34,5 +34,8 @@
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
         android:background="@drawable/rounded_corner"
-        tools:text="1" />
+        android:digits="0123456789"
+        android:maxLines="1"
+        android:maxLength="10"
+        tools:text="123456789012" />
 </androidx.constraintlayout.widget.ConstraintLayout>

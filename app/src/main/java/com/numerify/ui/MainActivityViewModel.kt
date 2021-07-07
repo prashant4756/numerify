@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.numerify.model.EditConfModel
 import com.numerify.preference.SharedPrefUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,6 +17,9 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     private var editConfVisibile: MutableLiveData<Boolean> = MutableLiveData()
     val editConfVisibileLiveData: LiveData<Boolean> = editConfVisibile
+
+    private var resetToDefault: MutableLiveData<Boolean> = MutableLiveData()
+    val resetToDefaultLiveData: LiveData<Boolean> = resetToDefault
 
     private var sumMutableLiveData: MutableLiveData<BigInteger> = MutableLiveData()
     val sumLiveData: LiveData<BigInteger> = sumMutableLiveData
@@ -83,6 +87,15 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     fun showEditConfNav(show: Boolean) {
         editConfVisibile.postValue(show)
+    }
+
+    fun updatePref(model: EditConfModel, newVal: CharSequence?) {
+        SharedPrefUtil.updatePref(getApplication(), model, newVal)
+    }
+
+    fun resetPrefWithDefault() {
+        SharedPrefUtil.resetPrefWithDefault(getApplication(), getDefaultNumeral())
+        resetToDefault.postValue(true)
     }
 
 }

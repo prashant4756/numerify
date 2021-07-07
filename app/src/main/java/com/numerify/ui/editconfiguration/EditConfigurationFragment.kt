@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +17,8 @@ import kotlinx.android.synthetic.main.fragment_edit_configuration.*
 import java.util.ArrayList
 
 class EditConfigurationFragment : Fragment() {
+
+    private var editConfArray = arrayListOf<EditConfModel>()
 
     private lateinit var mainActivityViewModel: MainActivityViewModel
 
@@ -33,11 +37,22 @@ class EditConfigurationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         mainActivityViewModel.showEditConfNav(false)
         setUpRecyclerView()
+        setUpObservables()
+    }
+
+    private fun setUpObservables() {
+        mainActivityViewModel.resetToDefaultLiveData.observe(viewLifecycleOwner, Observer {
+            if(it) {
+                editConfArray = getInitialData()
+                configList.adapter?.notifyDataSetChanged()
+            }
+        })
     }
 
     private fun setUpRecyclerView() {
         configList.apply {
-            this.adapter = EditConfRecyclerAdapter(getInitialData(), ::onChangeConf)
+            editConfArray = getInitialData()
+            this.adapter = EditConfRecyclerAdapter(editConfArray, ::onChangeConf)
             this.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         }
     }
@@ -53,6 +68,6 @@ class EditConfigurationFragment : Fragment() {
     }
 
     private fun onChangeConf(model: EditConfModel, newVal: CharSequence?) {
-
+        mainActivityViewModel.updatePref(model, newVal)
     }
 }
