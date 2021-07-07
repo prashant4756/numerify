@@ -77,7 +77,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         }
     }
 
-    private fun getPrefNumeralsAsMap(): Map<Char, Int> {
+    fun getPrefNumeralsAsMap(): Map<Char, Int> {
         return SharedPrefUtil.getPrefNumeralsAsMap(getApplication(), getDefaultNumeral())
     }
 

@@ -6,8 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.numerify.R
+import com.numerify.model.EditConfModel
 import com.numerify.ui.MainActivityViewModel
+import kotlinx.android.synthetic.main.fragment_edit_configuration.*
+import java.util.ArrayList
 
 class EditConfigurationFragment : Fragment() {
 
@@ -27,5 +32,27 @@ class EditConfigurationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mainActivityViewModel.showEditConfNav(false)
+        setUpRecyclerView()
+    }
+
+    private fun setUpRecyclerView() {
+        configList.apply {
+            this.adapter = EditConfRecyclerAdapter(getInitialData(), ::onChangeConf)
+            this.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        }
+    }
+
+    private fun getInitialData(): ArrayList<EditConfModel> {
+        val resultArray = arrayListOf<EditConfModel>()
+        val items = mainActivityViewModel.getPrefNumeralsAsMap()
+
+        for ((k, v) in items) {
+            resultArray.add(EditConfModel(k, v))
+        }
+        return resultArray
+    }
+
+    private fun onChangeConf(model: EditConfModel, newVal: CharSequence?) {
+
     }
 }
