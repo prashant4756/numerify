@@ -9,38 +9,47 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.numerify.R
+import com.numerify.ui.MainActivityViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var mainActivityViewModel: MainActivityViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpViewModels()
         setUpViewsListeners()
         observerViewModels()
     }
 
+    private fun setUpViewModels() {
+        mainActivityViewModel =
+            ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java)
+    }
+
     private fun setUpViewsListeners() {
         textInputField.editText?.doOnTextChanged { inputText, _, _, _ ->
-            //deal with the text
+            mainActivityViewModel.convertToNumerals(inputText?.trim())
         }
     }
 
     private fun observerViewModels() {
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
+        mainActivityViewModel.sumLiveData.observe(viewLifecycleOwner, Observer {
+            textSum.text = it?.toString() ?: "0"
+        })
 
+        mainActivityViewModel.squareLiveData.observe(viewLifecycleOwner, Observer {
+            textSquare.text = it?.toString() ?: "0"
         })
     }
 }

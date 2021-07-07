@@ -1,24 +1,25 @@
 package com.numerify.ui
 
 import android.app.Application
-import android.content.Context.MODE_PRIVATE
-import android.content.SharedPreferences
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.numerify.preference.SharedPrefUtil
+import java.math.BigInteger
 
 
-class MainActivityViewModel(application: Application): AndroidViewModel(application) {
+class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
 
-    // Storing data into SharedPreferences
-    var sharedPreferences: SharedPreferences = application.getSharedPreferences("Numerify", MODE_PRIVATE)
+    private var sumMutableLiveData: MutableLiveData<BigInteger> = MutableLiveData()
+    val sumLiveData: LiveData<BigInteger> = sumMutableLiveData
 
-    // Creating an Editor object to edit(write to the file)
-    var preferenceEditor = sharedPreferences.edit()
+    private var squareMutableLiveData: MutableLiveData<BigInteger> = MutableLiveData()
+    val squareLiveData: LiveData<BigInteger> = squareMutableLiveData
 
-    var map : MutableMap<Char, Int> = mutableMapOf()
+    var defaultMap: MutableMap<Char, Int> = mutableMapOf()
 
     fun setUpDefault() {
-        map.clear()
-        map.putAll(getDefaultNumeral())
+        defaultMap.putAll(getDefaultNumeral())
     }
 
     private fun getDefaultNumeral(): Map<Char, Int> {
@@ -50,6 +51,30 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
                 'Y' to 1,
                 'Z' to 7
         )
+    }
+
+    fun convertToNumerals(inputText: CharSequence?) {
+        if (inputText.isNullOrEmpty()) {
+            sumMutableLiveData.postValue(BigInteger.ZERO)
+            squareMutableLiveData.postValue(BigInteger.ZERO)
+            return
+        }
+
+        val numeralsMap = getPrefNumeralsAsMap()
+        var sum: BigInteger = BigInteger.ZERO
+        var square: BigInteger = BigInteger.ZERO
+        inputText.forEach {
+            val character = it.toUpperCase()
+            val numeralValueForChar = numeralsMap[character]
+            sum = sum.add(BigInteger.valueOf((numeralValueForChar?.toLong() ?: 0L)))
+            sumMutableLiveData.postValue(sum)
+        }
+        square = sum * sum
+        squareMutableLiveData.postValue(square)
+    }
+
+    private fun getPrefNumeralsAsMap(): Map<Char, Int> {
+        return SharedPrefUtil.getPrefNumeralsAsMap(getApplication(), getDefaultNumeral())
     }
 
 }
