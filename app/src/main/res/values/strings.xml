@@ -18,4 +18,5 @@
     <string name="square_of_sum">Square after summing up</string>
     <string name="square_root_of_sum">Square root after summing up</string>
     <string name="action_set_saved_value_to_default">Reset saved values to default</string>
+    <string name="reset_conf">Reset Conf</string>
 </resources>

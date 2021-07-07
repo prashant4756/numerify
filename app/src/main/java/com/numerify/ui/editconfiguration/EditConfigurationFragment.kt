@@ -20,6 +20,8 @@ class EditConfigurationFragment : Fragment() {
 
     private var editConfArray = arrayListOf<EditConfModel>()
 
+    private var editConfAdapter : EditConfRecyclerAdapter? = null
+
     private lateinit var mainActivityViewModel: MainActivityViewModel
 
     override fun onCreateView(
@@ -44,7 +46,7 @@ class EditConfigurationFragment : Fragment() {
         mainActivityViewModel.resetToDefaultLiveData.observe(viewLifecycleOwner, Observer {
             if(it) {
                 editConfArray = getInitialData()
-                configList.adapter?.notifyDataSetChanged()
+                editConfAdapter?.updateList(editConfArray)
             }
         })
     }
@@ -52,7 +54,8 @@ class EditConfigurationFragment : Fragment() {
     private fun setUpRecyclerView() {
         configList.apply {
             editConfArray = getInitialData()
-            this.adapter = EditConfRecyclerAdapter(editConfArray, ::onChangeConf)
+            editConfAdapter = EditConfRecyclerAdapter(editConfArray, ::onChangeConf)
+            this.adapter = editConfAdapter
             this.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         }
     }

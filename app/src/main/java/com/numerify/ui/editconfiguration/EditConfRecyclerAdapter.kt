@@ -9,7 +9,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import com.numerify.R
 import com.numerify.model.EditConfModel
-class EditConfRecyclerAdapter(private val dataSet: ArrayList<EditConfModel>, private val callback: (model: EditConfModel, newVal: CharSequence?) -> Unit) :
+class EditConfRecyclerAdapter(private var dataSet: ArrayList<EditConfModel>, private val callback: (model: EditConfModel, newVal: CharSequence?) -> Unit) :
         RecyclerView.Adapter<EditConfRecyclerAdapter.ViewHolder>()  {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -42,5 +42,11 @@ class EditConfRecyclerAdapter(private val dataSet: ArrayList<EditConfModel>, pri
 
     override fun getItemCount(): Int {
         return dataSet.size
+    }
+
+    fun updateList(editConfArray: java.util.ArrayList<EditConfModel>) {
+        dataSet.clear()
+        dataSet.addAll(editConfArray)
+        notifyDataSetChanged()
     }
 }
