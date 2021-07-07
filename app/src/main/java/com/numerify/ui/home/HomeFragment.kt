@@ -30,6 +30,7 @@ class HomeFragment : Fragment() {
         setUpViewModels()
         setUpViewsListeners()
         observerViewModels()
+        mainActivityViewModel.showEditConfNav(true)
     }
 
     private fun setUpViewModels() {

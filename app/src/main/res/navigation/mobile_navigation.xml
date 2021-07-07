@@ -22,4 +22,10 @@
         android:name="com.numerify.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_edit_configuration"
+        android:name="com.numerify.ui.editconfiguration.EditConfigurationFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_edit_configuration" />
 </navigation>

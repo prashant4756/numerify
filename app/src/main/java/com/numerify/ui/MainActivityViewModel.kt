@@ -14,17 +14,14 @@ import java.math.BigInteger
 
 class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
 
+    private var editConfVisibile: MutableLiveData<Boolean> = MutableLiveData()
+    val editConfVisibileLiveData: LiveData<Boolean> = editConfVisibile
+
     private var sumMutableLiveData: MutableLiveData<BigInteger> = MutableLiveData()
     val sumLiveData: LiveData<BigInteger> = sumMutableLiveData
 
     private var squareMutableLiveData: MutableLiveData<BigInteger> = MutableLiveData()
     val squareLiveData: LiveData<BigInteger> = squareMutableLiveData
-
-    var defaultMap: MutableMap<Char, Int> = mutableMapOf()
-
-    fun setUpDefault() {
-        defaultMap.putAll(getDefaultNumeral())
-    }
 
     private fun getDefaultNumeral(): Map<Char, Int> {
         return mapOf(
@@ -82,6 +79,10 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     private fun getPrefNumeralsAsMap(): Map<Char, Int> {
         return SharedPrefUtil.getPrefNumeralsAsMap(getApplication(), getDefaultNumeral())
+    }
+
+    fun showEditConfNav(show: Boolean) {
+        editConfVisibile.postValue(show)
     }
 
 }
