@@ -24,14 +24,13 @@ class EditConfigurationFragment : Fragment() {
     private lateinit var mainActivityViewModel: MainActivityViewModel
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         mainActivityViewModel =
-                ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_edit_configuration, container, false)
-        return root
+            ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java)
+        return inflater.inflate(R.layout.fragment_edit_configuration, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,13 +45,14 @@ class EditConfigurationFragment : Fragment() {
             if (it) {
                 editConfArray = getInitialData()
                 editConfAdapter?.updateList(editConfArray)
+
             }
         })
     }
 
     private fun setUpRecyclerView() {
         configList.apply {
-            editConfAdapter = EditConfRecyclerAdapter(::onChangeConf)
+            editConfAdapter = EditConfRecyclerAdapter(arrayListOf(), ::onChangeConf)
             this.adapter = editConfAdapter
             this.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         }
@@ -66,6 +66,7 @@ class EditConfigurationFragment : Fragment() {
         for ((k, v) in items) {
             resultArray.add(EditConfModel(k, v))
         }
+        resultArray.sortBy { it.key }
         return resultArray
     }
 

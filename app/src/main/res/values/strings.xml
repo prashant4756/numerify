@@ -20,4 +20,5 @@
     <string name="action_set_saved_value_to_default">Reset saved values to default</string>
     <string name="reset_conf">Reset Conf</string>
     <string name="edit_configuration">Edit configuration</string>
+    <string name="edit_the_values_for_each_letter_here">Edit the values for each letter here</string>
 </resources>

@@ -15,8 +15,8 @@ object SharedPrefUtil {
     // Storing data into SharedPreferences
     private fun getPreference(context: Context): SharedPreferences {
         return context.getSharedPreferences(
-                PREF_NAME,
-                Context.MODE_PRIVATE
+            PREF_NAME,
+            Context.MODE_PRIVATE
         )
     }
 
@@ -36,7 +36,7 @@ object SharedPrefUtil {
     private fun getPrefAsMap(context: Context): MutableMap<Char, Int> {
         val sharedPreferences = getPreference(context)
         val jsonString: String =
-                sharedPreferences.getString(NUMERALS_MAP_PREF, JSONObject().toString()).orEmpty()
+            sharedPreferences.getString(NUMERALS_MAP_PREF, JSONObject().toString()).orEmpty()
         val dataType = object : TypeToken<MutableMap<Char, Int>>() {}.type
         return Gson().fromJson(jsonString, dataType)
     }

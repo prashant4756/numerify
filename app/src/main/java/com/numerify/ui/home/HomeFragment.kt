@@ -17,9 +17,9 @@ class HomeFragment : Fragment() {
     private lateinit var mainActivityViewModel: MainActivityViewModel
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         return root
@@ -35,7 +35,7 @@ class HomeFragment : Fragment() {
 
     private fun setUpViewModels() {
         mainActivityViewModel =
-                ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java)
+            ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java)
     }
 
     private fun setUpViewsListeners() {
