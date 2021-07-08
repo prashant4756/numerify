@@ -1,5 +1,7 @@
 package com.numerify
 
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -14,6 +16,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.numerify.ui.MainActivityViewModel
+import kotlinx.android.synthetic.main.content_main.*
+
 
 class MainActivity : AppCompatActivity() {
     private var fab: FloatingActionButton? = null
@@ -28,6 +32,17 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         setUpFloatingActionButton()
         setDrawerLayout()
+        setAppVersion()
+    }
+
+    private fun setAppVersion() {
+        try {
+            val pInfo: PackageInfo = getPackageManager().getPackageInfo(getPackageName(), 0)
+            val version = pInfo.versionName
+            app_details_text.text = "V $version"
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
     }
 
     private fun setUpViewModel() {
