@@ -56,7 +56,8 @@ class EditConfigurationFragment : Fragment() {
             this.adapter = editConfAdapter
             this.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         }
-        editConfAdapter?.updateList(getInitialData())
+        editConfArray = getInitialData()
+        editConfAdapter?.updateList(editConfArray)
     }
 
     private fun getInitialData(): ArrayList<EditConfModel> {
@@ -71,6 +72,9 @@ class EditConfigurationFragment : Fragment() {
     }
 
     private fun onChangeConf(model: EditConfModel, newVal: CharSequence?) {
+        if(newVal.isNullOrEmpty()) return
         mainActivityViewModel.updatePref(model, newVal)
+        editConfArray.find { it.key == model.key }?.let { it.value = newVal.toString().toInt() }
+        editConfAdapter?.updateList(editConfArray, notifyDataSetChanged = false)
     }
 }

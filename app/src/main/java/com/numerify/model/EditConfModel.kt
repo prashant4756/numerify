@@ -1,3 +1,3 @@
 package com.numerify.model
 
-data class EditConfModel(val key: Char, val value: Int)
+data class EditConfModel(val key: Char, var value: Int)
