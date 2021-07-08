@@ -52,5 +52,13 @@ class HomeFragment : Fragment() {
         mainActivityViewModel.squareLiveData.observe(viewLifecycleOwner, Observer {
             textSquare.text = it?.toString() ?: "0"
         })
+
+        mainActivityViewModel.resetToDefaultLiveData.observe(viewLifecycleOwner, Observer{
+            if(it) {
+                textInputField.editText?.text?.let {
+                    mainActivityViewModel.convertToNumerals(it.trim())
+                }
+            }
+        })
     }
 }
