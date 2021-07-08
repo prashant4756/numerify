@@ -15,8 +15,8 @@ object SharedPrefUtil {
     // Storing data into SharedPreferences
     private fun getPreference(context: Context): SharedPreferences {
         return context.getSharedPreferences(
-            PREF_NAME,
-            Context.MODE_PRIVATE
+                PREF_NAME,
+                Context.MODE_PRIVATE
         )
     }
 
@@ -42,7 +42,7 @@ object SharedPrefUtil {
     }
 
     fun updatePref(context: Context, model: EditConfModel, newVal: CharSequence?) {
-        if(newVal.isNullOrEmpty()) return
+        if (newVal.isNullOrEmpty()) return
         val sharedPreferences = getPreference(context)
         val currentMap = getPrefAsMap(context)
         currentMap[model.key] = newVal.toString().toInt()

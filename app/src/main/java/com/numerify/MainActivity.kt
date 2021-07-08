@@ -13,7 +13,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import com.numerify.ui.MainActivityViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -34,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     private fun setUpViewModel() {
         mainActivityViewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
         mainActivityViewModel.editConfVisibileLiveData.observe(this, Observer {
-            if(it) {
+            if (it) {
                 fab?.visibility = VISIBLE
             } else {
                 fab?.visibility = GONE
@@ -77,7 +76,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        when (item.itemId) {
             R.id.action_reset_default -> {
                 mainActivityViewModel.resetPrefWithDefault()
                 return true

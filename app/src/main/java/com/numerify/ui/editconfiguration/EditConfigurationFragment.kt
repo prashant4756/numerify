@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,23 +13,23 @@ import com.numerify.R
 import com.numerify.model.EditConfModel
 import com.numerify.ui.MainActivityViewModel
 import kotlinx.android.synthetic.main.fragment_edit_configuration.*
-import java.util.ArrayList
+import java.util.*
 
 class EditConfigurationFragment : Fragment() {
 
     private var editConfArray = arrayListOf<EditConfModel>()
 
-    private var editConfAdapter : EditConfRecyclerAdapter? = null
+    private var editConfAdapter: EditConfRecyclerAdapter? = null
 
     private lateinit var mainActivityViewModel: MainActivityViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         mainActivityViewModel =
-            ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java)
+                ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_edit_configuration, container, false)
         return root
     }
@@ -44,7 +43,7 @@ class EditConfigurationFragment : Fragment() {
 
     private fun setUpObservables() {
         mainActivityViewModel.resetToDefaultLiveData.observe(viewLifecycleOwner, Observer {
-            if(it) {
+            if (it) {
                 editConfArray = getInitialData()
                 editConfAdapter?.updateList(editConfArray)
             }

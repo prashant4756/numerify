@@ -11,8 +11,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.numerify.R
 import com.numerify.model.EditConfModel
+
 class EditConfRecyclerAdapter(private val callback: (model: EditConfModel, newVal: CharSequence?) -> Unit) :
-        ListAdapter<EditConfModel, EditConfRecyclerAdapter.ViewHolder>(DiffCallback())  {
+        ListAdapter<EditConfModel, EditConfRecyclerAdapter.ViewHolder>(DiffCallback()) {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(model: EditConfModel, callback: (model: EditConfModel, newVal: CharSequence?) -> Unit) {
@@ -38,7 +39,7 @@ class EditConfRecyclerAdapter(private val callback: (model: EditConfModel, newVa
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if(position == -1) return
+        if (position==-1) return
         holder.bind(getItem(position), callback)
     }
 
@@ -49,9 +50,9 @@ class EditConfRecyclerAdapter(private val callback: (model: EditConfModel, newVa
     private class DiffCallback : DiffUtil.ItemCallback<EditConfModel>() {
 
         override fun areItemsTheSame(oldItem: EditConfModel, newItem: EditConfModel) =
-                oldItem.key == newItem.key
+                oldItem.key==newItem.key
 
         override fun areContentsTheSame(oldItem: EditConfModel, newItem: EditConfModel) =
-                oldItem == newItem
+                oldItem==newItem
     }
 }
