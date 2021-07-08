@@ -41,13 +41,15 @@ object SharedPrefUtil {
         return Gson().fromJson(jsonString, dataType)
     }
 
-    fun updatePref(context: Context, model: EditConfModel, newVal: CharSequence?) {
-        if (newVal.isNullOrEmpty()) return
+    fun updatePref(context: Context, model: EditConfModel, newVal: CharSequence?): Int {
+        if (newVal.isNullOrEmpty()) return 0
         val sharedPreferences = getPreference(context)
         val currentMap = getPrefAsMap(context)
-        currentMap[model.key] = newVal.toString().toInt()
+        val updatedVal = newVal.toString().toInt()
+        currentMap[model.key] = updatedVal
         val updatedJson = Gson().toJson(currentMap)
         sharedPreferences.edit().putString(NUMERALS_MAP_PREF, updatedJson).apply()
+        return updatedVal
     }
 
     fun resetPrefWithDefault(context: Context, defaultMap: Map<Char, Int>) {

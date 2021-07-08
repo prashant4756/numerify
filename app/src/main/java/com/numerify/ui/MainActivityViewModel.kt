@@ -89,8 +89,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         editConfVisibile.postValue(show)
     }
 
-    fun updatePref(model: EditConfModel, newVal: CharSequence?) {
-        SharedPrefUtil.updatePref(getApplication(), model, newVal)
+    fun updatePref(model: EditConfModel, newVal: CharSequence?): Int {
+        return SharedPrefUtil.updatePref(getApplication(), model, newVal)
     }
 
     fun resetPrefWithDefault() {

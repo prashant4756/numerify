@@ -73,8 +73,8 @@ class EditConfigurationFragment : Fragment() {
 
     private fun onChangeConf(model: EditConfModel, newVal: CharSequence?) {
         if (newVal.isNullOrEmpty()) return
-        mainActivityViewModel.updatePref(model, newVal)
-        editConfArray.find { it.key == model.key }?.let { it.value = newVal.toString().toInt() }
+        val updatedVal = mainActivityViewModel.updatePref(model, newVal)
+        editConfArray.find { it.key == model.key }?.let { it.value = updatedVal }
         editConfAdapter?.updateList(editConfArray, notifyDataSetChanged = false)
     }
 }
