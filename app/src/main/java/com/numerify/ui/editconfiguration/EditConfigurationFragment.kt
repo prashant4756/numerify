@@ -53,11 +53,11 @@ class EditConfigurationFragment : Fragment() {
 
     private fun setUpRecyclerView() {
         configList.apply {
-            editConfArray = getInitialData()
-            editConfAdapter = EditConfRecyclerAdapter(editConfArray, ::onChangeConf)
+            editConfAdapter = EditConfRecyclerAdapter(::onChangeConf)
             this.adapter = editConfAdapter
             this.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         }
+        editConfAdapter?.updateList(getInitialData())
     }
 
     private fun getInitialData(): ArrayList<EditConfModel> {
