@@ -49,9 +49,12 @@ class EditConfRecyclerAdapter(
         holder.bind(dataSet.get(position), callback)
     }
 
-    fun updateList(editConfArray: java.util.ArrayList<EditConfModel>, notifyDataSetChanged: Boolean = true) {
+    fun updateList(
+        editConfArray: java.util.ArrayList<EditConfModel>,
+        notifyDataSetChanged: Boolean = true
+    ) {
         dataSet = editConfArray
-        if(notifyDataSetChanged) notifyDataSetChanged()
+        if (notifyDataSetChanged) notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int = dataSet.size
