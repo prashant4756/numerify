@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,18 +16,21 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.numerify.databinding.ActivityMainBinding
 import com.numerify.ui.MainActivityViewModel
-import kotlinx.android.synthetic.main.content_main.*
 
 
 class MainActivity : AppCompatActivity() {
     private var fab: FloatingActionButton? = null
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var mainActivityViewModel: MainActivityViewModel
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = ActivityMainBinding.inflate(layoutInflater);
+        setContentView(binding.root)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setUpViewModel()
         setSupportActionBar(toolbar)
@@ -39,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         try {
             val pInfo: PackageInfo = getPackageManager().getPackageInfo(getPackageName(), 0)
             val version = pInfo.versionName
-            app_details_text.text = "V $version"
+            findViewById<AppCompatTextView>(R.id.app_details_text).text = "V $version"
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
         }
