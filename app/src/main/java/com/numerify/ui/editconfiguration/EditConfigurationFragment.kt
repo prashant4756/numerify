@@ -9,10 +9,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.numerify.R
+import com.numerify.databinding.FragmentEditConfigurationBinding
 import com.numerify.model.EditConfModel
 import com.numerify.ui.MainActivityViewModel
-import kotlinx.android.synthetic.main.fragment_edit_configuration.*
 import java.util.*
 
 class EditConfigurationFragment : Fragment() {
@@ -23,14 +22,17 @@ class EditConfigurationFragment : Fragment() {
 
     private lateinit var mainActivityViewModel: MainActivityViewModel
 
+    private lateinit var binding: FragmentEditConfigurationBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FragmentEditConfigurationBinding.inflate(inflater, container, false)
         mainActivityViewModel =
             ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java)
-        return inflater.inflate(R.layout.fragment_edit_configuration, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,7 +53,7 @@ class EditConfigurationFragment : Fragment() {
     }
 
     private fun setUpRecyclerView() {
-        configList.apply {
+        binding.configList.apply {
             editConfAdapter = EditConfRecyclerAdapter(arrayListOf(), ::onChangeConf)
             this.adapter = editConfAdapter
             this.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)

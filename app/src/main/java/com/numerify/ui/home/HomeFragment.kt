@@ -6,23 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.numerify.R
+import com.numerify.databinding.FragmentHomeBinding
 import com.numerify.ui.MainActivityViewModel
-import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
 
     private lateinit var mainActivityViewModel: MainActivityViewModel
+
+    private lateinit var binding: FragmentHomeBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
-        return root
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,26 +39,26 @@ class HomeFragment : Fragment() {
     }
 
     private fun setUpViewsListeners() {
-        textInputField.editText?.doOnTextChanged { inputText, _, _, _ ->
+        binding.textInputField.editText?.doOnTextChanged { inputText, _, _, _ ->
             mainActivityViewModel.convertToNumerals(inputText?.trim())
         }
     }
 
     private fun observerViewModels() {
-        mainActivityViewModel.sumLiveData.observe(viewLifecycleOwner, Observer {
-            textSum.text = it?.toString() ?: "0"
-        })
+        mainActivityViewModel.sumLiveData.observe(viewLifecycleOwner) {
+            binding.textSum.text = it?.toString() ?: "0"
+        }
 
-        mainActivityViewModel.squareLiveData.observe(viewLifecycleOwner, Observer {
-            textSquare.text = it?.toString() ?: "0"
-        })
+        mainActivityViewModel.squareLiveData.observe(viewLifecycleOwner) {
+            binding.textSquare.text = it?.toString() ?: "0"
+        }
 
-        mainActivityViewModel.resetToDefaultLiveData.observe(viewLifecycleOwner, Observer {
+        mainActivityViewModel.resetToDefaultLiveData.observe(viewLifecycleOwner) {
             if (it) {
-                textInputField.editText?.text?.let {
+                binding.textInputField.editText?.text?.let {
                     mainActivityViewModel.convertToNumerals(it.trim())
                 }
             }
-        })
+        }
     }
 }
