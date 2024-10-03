@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "692455982159",
+    "project_id": "numerify-55e9e",
+    "storage_bucket": "numerify-55e9e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:692455982159:android:dd32e3ee9370b00098963a",
+        "android_client_info": {
+          "package_name": "com.numerify"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "692455982159-bbra00i44ki330feihchc2ngim56nf3b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnGUl4OfRwAgzDd5Svl2qlgYsZNeEdFVo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "692455982159-bbra00i44ki330feihchc2ngim56nf3b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
