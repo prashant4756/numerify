@@ -15,18 +15,23 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.numerify.databinding.ActivityMainBinding
 import com.numerify.ui.MainActivityViewModel
-import kotlinx.android.synthetic.main.content_main.*
 
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+
     private var fab: FloatingActionButton? = null
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var mainActivityViewModel: MainActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setUpViewModel()
         setSupportActionBar(toolbar)
@@ -39,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         try {
             val pInfo: PackageInfo = getPackageManager().getPackageInfo(getPackageName(), 0)
             val version = pInfo.versionName
-            app_details_text.text = "V $version"
+//            binding.app_details_text.text = "V $version"
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
         }
