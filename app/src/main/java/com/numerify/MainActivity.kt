@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
@@ -44,7 +45,9 @@ class MainActivity : AppCompatActivity() {
         try {
             val pInfo: PackageInfo = getPackageManager().getPackageInfo(getPackageName(), 0)
             val version = pInfo.versionName
-//            binding.app_details_text.text = "V $version"
+            (findViewById<TextView>(R.id.app_details_text))?.let {
+                it.text = "V $version"
+            }
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
         }
