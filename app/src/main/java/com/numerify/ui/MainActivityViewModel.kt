@@ -70,7 +70,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                 var sum: BigInteger = BigInteger.ZERO
                 var square: BigInteger = BigInteger.ZERO
                 inputText.forEach {
-                    val character = it.toUpperCase()
+                    val character = it.uppercaseChar()
                     val numeralValueForChar = numeralsMap[character]
                     sum = sum.add(BigInteger.valueOf((numeralValueForChar?.toLong() ?: 0L)))
                     sumMutableLiveData.postValue(sum)
