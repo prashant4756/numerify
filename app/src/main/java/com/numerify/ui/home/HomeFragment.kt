@@ -8,11 +8,12 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.numerify.R
+import com.numerify.databinding.FragmentHomeBinding
 import com.numerify.ui.MainActivityViewModel
-import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var mainActivityViewModel: MainActivityViewModel
 
@@ -21,8 +22,8 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
-        return root
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,23 +40,23 @@ class HomeFragment : Fragment() {
     }
 
     private fun setUpViewsListeners() {
-        textInputField.editText?.doOnTextChanged { inputText, _, _, _ ->
+        binding.textInputField.editText?.doOnTextChanged { inputText, _, _, _ ->
             mainActivityViewModel.convertToNumerals(inputText?.trim())
         }
     }
 
     private fun observerViewModels() {
         mainActivityViewModel.sumLiveData.observe(viewLifecycleOwner, Observer {
-            textSum.text = it?.toString() ?: "0"
+            binding.textSum.text = it?.toString() ?: "0"
         })
 
         mainActivityViewModel.squareLiveData.observe(viewLifecycleOwner, Observer {
-            textSquare.text = it?.toString() ?: "0"
+            binding.textSquare.text = it?.toString() ?: "0"
         })
 
         mainActivityViewModel.resetToDefaultLiveData.observe(viewLifecycleOwner, Observer {
             if (it) {
-                textInputField.editText?.text?.let {
+                binding.textInputField.editText?.text?.let {
                     mainActivityViewModel.convertToNumerals(it.trim())
                 }
             }
